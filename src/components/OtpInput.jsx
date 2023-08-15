@@ -5,19 +5,23 @@ import { useRef } from 'react';
 
 let currentOTPIndex = 0;
 
-const OtpInput = ({ length=4, inputType="number", value="", onChange }) => {
-  const [otp, setOtp] = useState(new Array(length).fill("")); 
+const OtpInput = ({ length=4, inputType="number", value="", onChange}) => {
+  const [otp, setOtp] = useState([]); 
   const [activeOTPIndex, setActiveOTPIndex] = useState(0);
-
+ 
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (length === value.length) {
+    setOtp(new Array(length).fill(""))
+  }, [length])
+
+  useEffect(() => {
+    if (length === value?.length) {
       const initialOTP = value?.trim().split(' ').join('').substring(0, length).split('');
       setOtp(initialOTP);
       setActiveOTPIndex(length - 1);
     }
-  }, [])
+  }, [length, value])
 
   //handleChange function will fire after handleOnKeyDown Function
   const handleChange = (e) => {
