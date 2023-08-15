@@ -4,6 +4,7 @@ import OtpInput from './components/OtpInput';
 
 function App() {
   const [type, setType] = useState('number');
+  const [otpValue, setOtpValue] = useState('');
 
   return (
     <div className='h-screen bg-yellow-200 flex flex-col items-center justify-center gap-5'>
@@ -17,7 +18,8 @@ function App() {
           <option value="text">text</option>
         </select>
       </div>
-      <OtpInput length={6} inputType={type}/>
+      <OtpInput length={6} inputType={type} value={otpValue} onChange={setOtpValue}/>
+      <p>Retrieved Value: {otpValue}</p>
     </div>
   )
 }

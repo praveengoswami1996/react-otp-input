@@ -5,11 +5,19 @@ import { useRef } from 'react';
 
 let currentOTPIndex = 0;
 
-const OtpInput = ({ length, inputType }) => {
+const OtpInput = ({ length=4, inputType="number", value="", onChange }) => {
   const [otp, setOtp] = useState(new Array(length).fill("")); 
   const [activeOTPIndex, setActiveOTPIndex] = useState(0);
 
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (length === value.length) {
+      const initialOTP = value?.trim().split(' ').join('').substring(0, length).split('');
+      setOtp(initialOTP);
+      setActiveOTPIndex(length - 1);
+    }
+  }, [])
 
   //handleChange function will fire after handleOnKeyDown Function
   const handleChange = (e) => {
@@ -53,6 +61,10 @@ const OtpInput = ({ length, inputType }) => {
     inputRef.current?.focus();
   }, [activeOTPIndex])
 
+  useEffect(() => {
+    onChange(otp.join(""));
+  }, [otp, onChange])
+
   return (
     <div className="flex items-center gap-2">
         {
@@ -77,7 +89,9 @@ const OtpInput = ({ length, inputType }) => {
 
 OtpInput.propTypes = {
     length: PropTypes.number.isRequired,
-    inputType: PropTypes.string.isRequired
+    inputType: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
 };
 
 export default OtpInput;
