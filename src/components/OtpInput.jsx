@@ -5,7 +5,7 @@ import { useRef } from 'react';
 
 let currentOTPIndex = 0;
 
-const OtpInput = ({ length }) => {
+const OtpInput = ({ length, inputType }) => {
   const [otp, setOtp] = useState(new Array(length).fill("")); 
   const [activeOTPIndex, setActiveOTPIndex] = useState(0);
 
@@ -38,6 +38,9 @@ const OtpInput = ({ length }) => {
 
     for (let i=currentOTPIndex-1; i>=0; i--) {
       if (otp[i] === '') {
+        if (i === 0) {
+          currentOTPIndex = 0;
+        }
         continue;
       } else {
         currentOTPIndex = i + 1;
@@ -56,7 +59,7 @@ const OtpInput = ({ length }) => {
             otp.map((_, index) => {
                 return (
                     <input
-                        type="number"
+                        type={inputType}
                         ref={index === activeOTPIndex ? inputRef : null}
                         key={index}
                         className="hidden-number-input w-[50px] text-[32px] p-[10px] text-center"  
@@ -73,7 +76,8 @@ const OtpInput = ({ length }) => {
 }
 
 OtpInput.propTypes = {
-    length: PropTypes.number.isRequired
+    length: PropTypes.number.isRequired,
+    inputType: PropTypes.string.isRequired
 };
 
 export default OtpInput;
