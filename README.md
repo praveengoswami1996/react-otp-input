@@ -10,4 +10,4 @@ React OTP input made with Tailwind CSS.
 
 
 ## Deploy Link
-https://pg1996-calculator-react.netlify.app/
+https://pg1996-react-otp-input.netlify.app/
